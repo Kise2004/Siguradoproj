@@ -1,0 +1,213 @@
+{{> head}}
+<body class="bg-gray-50 min-h-screen flex">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-gradient-to-b from-blue-600 to-purple-600 text-white fixed h-full shadow-2xl z-50">
+    <div class="p-6">
+      <div class="flex items-center space-x-3 mb-8">
+        <svg class="w-10 h-10 nav-logo" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+        </svg>
+        <div>
+          <h1 class="text-xl font-bold">SIGURADO</h1>
+          <p class="text-xs opacity-75">MDRRMO</p>
+        </div>
+      </div>
+      
+      <nav class="space-y-2">
+        <a href="/dashboard" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-white bg-opacity-20 hover:bg-opacity-30 transition">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+          </svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="/incidents" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+          </svg>
+          <span>Incidents</span>
+        </a>
+        <a href="/barangays" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/>
+          </svg>
+          <span>Barangays</span>
+        </a>
+        <a href="/responders" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+          </svg>
+          <span>Responders</span>
+        </a>
+        <a href="/resources" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/>
+          </svg>
+          <span>Resources</span>
+        </a>
+        <a href="/logout" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-red-500 bg-opacity-80 hover:bg-opacity-100 transition mt-8">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"/>
+          </svg>
+          <span>Logout</span>
+        </a>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="flex-1 ml-64 flex flex-col min-h-screen">
+    <div class="flex-1 p-8">
+    {{#if success_msg}}
+    <script>Swal.fire({ icon: 'success', title: 'Success!', text: '{{success_msg}}', confirmButtonColor: '#2563eb' });</script>
+    {{/if}}
+    {{#if error_msg}}
+    <script>Swal.fire({ icon: 'error', title: 'Error!', text: '{{error_msg}}', confirmButtonColor: '#dc2626' });</script>
+    {{/if}}
+
+    <div class="mb-8 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6 border-l-4 border-blue-600">
+      <h1 class="text-4xl font-bold mb-2 text-gray-800">MDRRMO Dashboard</h1>
+      <p class="text-gray-600 text-lg">Municipal Disaster Risk Reduction and Management Office</p>
+      {{#if user}}
+        <div class="mt-4 flex items-center gap-2">
+          <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+          </svg>
+          <p class="text-gray-700"><strong>{{user.name}}</strong> <span class="text-sm text-gray-500">(MDRRMO Staff)</span></p>
+        </div>
+      {{/if}}
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+      <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-500 text-sm">Total Incidents</p>
+            <h3 class="text-3xl font-bold text-red-600">45</h3>
+          </div>
+          <div class="bg-red-100 rounded-full p-3">
+            <svg class="w-8 h-8 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-500 text-sm">Responders</p>
+            <h3 class="text-3xl font-bold text-blue-600">28</h3>
+          </div>
+          <div class="bg-blue-100 rounded-full p-3">
+            <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-500 text-sm">Barangays</p>
+            <h3 class="text-3xl font-bold text-purple-600">15</h3>
+          </div>
+          <div class="bg-purple-100 rounded-full p-3">
+            <svg class="w-8 h-8 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-500 text-sm">Resources</p>
+            <h3 class="text-3xl font-bold text-green-600">156</h3>
+          </div>
+          <div class="bg-green-100 rounded-full p-3">
+            <svg class="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <a href="/incidents" class="block bg-gradient-to-br from-red-500 to-orange-500 rounded-xl p-6 text-white hover:scale-105 transition-transform duration-300 shadow-lg hover:shadow-2xl">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-2xl font-bold mb-2">Manage Incidents</h3>
+            <p class="text-red-50">Monitor and coordinate emergency responses</p>
+          </div>
+          <svg class="w-12 h-12 opacity-80" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+      </a>
+
+      <a href="/barangays" class="block bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl p-6 text-white hover:scale-105 transition-transform duration-300 shadow-lg hover:shadow-2xl">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-2xl font-bold mb-2">Barangay Management</h3>
+            <p class="text-purple-50">Oversee all barangay operations</p>
+          </div>
+          <svg class="w-12 h-12 opacity-80" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+      </a>
+
+      <a href="/responders" class="block bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl p-6 text-white hover:scale-105 transition-transform duration-300 shadow-lg hover:shadow-2xl">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-2xl font-bold mb-2">Responder Teams</h3>
+            <p class="text-blue-50">Manage emergency response personnel</p>
+          </div>
+          <svg class="w-12 h-12 opacity-80" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+          </svg>
+        </div>
+      </a>
+
+      <a href="/resources" class="block bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl p-6 text-white hover:scale-105 transition-transform duration-300 shadow-lg hover:shadow-2xl">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-2xl font-bold mb-2">Resource Inventory</h3>
+            <p class="text-green-50">Track and manage disaster supplies</p>
+          </div>
+          <svg class="w-12 h-12 opacity-80" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/>
+          </svg>
+        </div>
+      </a>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-lg p-6">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">System Overview</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4 border border-blue-200">
+          <p class="text-sm text-blue-600 font-semibold mb-1">Active Operations</p>
+          <p class="text-2xl font-bold text-blue-800">12</p>
+          <p class="text-xs text-blue-600 mt-1">Emergency responses in progress</p>
+        </div>
+        <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-4 border border-green-200">
+          <p class="text-sm text-green-600 font-semibold mb-1">Resolved This Week</p>
+          <p class="text-2xl font-bold text-green-800">38</p>
+          <p class="text-xs text-green-600 mt-1">Successfully completed incidents</p>
+        </div>
+        <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-4 border border-purple-200">
+          <p class="text-sm text-purple-600 font-semibold mb-1">Average Response Time</p>
+          <p class="text-2xl font-bold text-purple-800">15m</p>
+          <p class="text-xs text-purple-600 mt-1">From report to deployment</p>
+        </div>
+      </div>
+    </div>
+    </div>
+    
+    {{> footer}}
+  </div>
+</body>
+</html>

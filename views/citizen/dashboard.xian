@@ -1,0 +1,211 @@
+{{> head}}
+<body class="bg-gray-50 min-h-screen flex">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-gradient-to-b from-blue-600 to-purple-600 text-white fixed h-full shadow-2xl z-50">
+    <div class="p-6">
+      <div class="flex items-center space-x-3 mb-8">
+        <svg class="w-10 h-10 nav-logo" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+        </svg>
+        <div>
+          <h1 class="text-xl font-bold">SIGURADO</h1>
+          <p class="text-xs opacity-75">Gloria, Oriental Mindoro</p>
+        </div>
+      </div>
+      
+      <nav class="space-y-3">
+        <a href="/dashboard" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-white bg-opacity-20 hover:bg-opacity-30 transition">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+          </svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="/report-incident" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd"/></svg>
+          <span>Report Incident</span>
+        </a>
+        <a href="/incidents" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+          </svg>
+          <span>Incidents</span>
+        </a>
+        <a href="/barangays" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/>
+          </svg>
+          <span>Barangays</span>
+        </a>
+        <a href="/responders" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+          </svg>
+          <span>Responders</span>
+        </a>
+        <a href="/resources" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/>
+          </svg>
+          <span>Resources</span>
+        </a>
+        <a href="/logout" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-red-500 bg-opacity-80 hover:bg-opacity-100 transition mt-8">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"/>
+          </svg>
+          <span>Logout</span>
+        </a>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="flex-1 ml-64 flex flex-col min-h-screen">
+    <div class="flex-1 p-8">
+    <script>
+      {{#if success_msg}}
+        Swal.fire({ icon: 'success', title: 'Success!', text: '{{success_msg}}', confirmButtonColor: '#2563eb' });
+      {{/if}}
+      {{#if error_msg}}
+        Swal.fire({ icon: 'error', title: 'Error!', text: '{{error_msg}}', confirmButtonColor: '#dc2626' });
+      {{/if}}
+    </script>
+
+    <div class="mb-8 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6 border-l-4 border-blue-600">
+      <h1 class="text-4xl font-bold mb-2 text-gray-800">Welcome to SIGURADO</h1>
+      <p class="text-gray-600 text-lg">Disaster Management System for Gloria, Oriental Mindoro</p>
+      {{#if user}}
+        <div class="mt-4 flex items-center gap-2">
+          <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+          </svg>
+          <p class="text-gray-700"><strong>{{user.name}}</strong> <span class="text-sm text-gray-500">({{user.role}})</span></p>
+        </div>
+      {{/if}}
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+      <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-500 text-sm">Total Incidents</p>
+            <p class="text-3xl font-bold text-red-600">0</p>
+          </div>
+          <svg class="w-12 h-12 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-500 text-sm">Active Responders</p>
+            <p class="text-3xl font-bold text-green-600">0</p>
+          </div>
+          <svg class="w-12 h-12 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-500 text-sm">Barangays</p>
+            <p class="text-3xl font-bold text-purple-600">24</p>
+          </div>
+          <svg class="w-12 h-12 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-500 text-sm">Resources</p>
+            <p class="text-3xl font-bold text-orange-600">0</p>
+          </div>
+          <svg class="w-12 h-12 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z"/>
+            <path fill-rule="evenodd" d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Quick Actions -->
+      <div class="lg:col-span-2 bg-white rounded-xl shadow-lg p-6 border-t-4 border-blue-600">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-2xl font-bold text-gray-800">Quick Actions</h2>
+          <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <a href="/report-incident" class="group bg-gradient-to-br from-red-500 to-red-600 text-white p-5 rounded-xl hover:from-red-600 hover:to-red-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+            <div class="flex items-center gap-3 mb-2">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+              </svg>
+              <h3 class="text-lg font-bold">Report Incident</h3>
+            </div>
+            <p class="text-sm opacity-90">Submit a new disaster report with GPS location</p>
+          </a>
+          
+          <a href="/incidents" class="group bg-gradient-to-br from-blue-500 to-blue-600 text-white p-5 rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+            <div class="flex items-center gap-3 mb-2">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/>
+              </svg>
+              <h3 class="text-lg font-bold">View Incidents</h3>
+            </div>
+            <p class="text-sm opacity-90">Track all reported incidents and their status</p>
+          </a>
+          
+          <a href="/barangays" class="group bg-gradient-to-br from-purple-500 to-purple-600 text-white p-5 rounded-xl hover:from-purple-600 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+            <div class="flex items-center gap-3 mb-2">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+              </svg>
+              <h3 class="text-lg font-bold">Barangays</h3>
+            </div>
+            <p class="text-sm opacity-90">View all 24 barangays and their details</p>
+          </a>
+          
+          <a href="/resources" class="group bg-gradient-to-br from-orange-500 to-orange-600 text-white p-5 rounded-xl hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+            <div class="flex items-center gap-3 mb-2">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z"/>
+                <path fill-rule="evenodd" d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" clip-rule="evenodd"/>
+              </svg>
+              <h3 class="text-lg font-bold">Resources</h3>
+            </div>
+            <p class="text-sm opacity-90">View available emergency resources</p>
+          </a>
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-purple-600">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-2xl font-bold text-gray-800">Recent Activity</h2>
+          <svg class="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+        <div class="text-center py-12">
+          <svg class="w-16 h-16 mx-auto text-gray-300 mb-3" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+          </svg>
+          <p class="text-gray-500 font-medium">No recent activity</p>
+          <p class="text-sm text-gray-400 mt-1">Your actions will appear here</p>
+        </div>
+      </div>
+    </div>
+    </div>
+    
+    {{> footer}}
+  </div>

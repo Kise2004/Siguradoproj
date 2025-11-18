@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            // Primary Brand Colors (60% usage)
+            'navy': {
+              50: '#E6F0FF',
+              100: '#B3D1FF',
+              200: '#80B2FF',
+              300: '#4D93FF',
+              400: '#1A74FF',
+              500: '#003D82',  // Primary Navy
+              600: '#002D5F',
+              700: '#001D3C',
+              800: '#000E1A',
+              900: '#000509'
+            },
+            // Accent Colors (30% usage)
+            'teal': {
+              50: '#E6F7F7',
+              100: '#B3E9E9',
+              200: '#80DBDB',
+              300: '#4DCDCD',
+              400: '#1ABFBF',
+              500: '#0D9B9B',  // Primary Teal
+              600: '#0A7878',
+              700: '#075555',
+              800: '#043232',
+              900: '#020F0F'
+            },
+            // Status Colors (Alert System)
+            'danger': '#DC2626',      // Red - Immediate Threat
+            'warning': '#F97316',     // Orange - Serious Hazard
+            'caution': '#FBBF24',     // Yellow - Potential Risk
+            'safe': '#10B981',        // Green - Safe/Resolved
+            'info': '#3B82F6'         // Blue - Informational
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <title>{{ title }} - SIGURADO</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+    body { 
+      font-family: 'Inter', sans-serif;
+      background-color: #F3F4F6;
+    }
+    
+    /* Status Badge Styles with Accessibility */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.75rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+    
+    .status-critical { background-color: #DC2626; color: white; }
+    .status-high { background-color: #F97316; color: white; }
+    .status-medium { background-color: #FBBF24; color: #1F2937; }
+    .status-low { background-color: #10B981; color: white; }
+    .status-info { background-color: #3B82F6; color: white; }
+    
+    /* Animations from Landing Page */
+    .float-animation {
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    .fade-in {
+      animation: fadeIn 1s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .slide-up {
+      animation: slideUp 0.8s ease-out;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .scale-on-hover {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .scale-on-hover:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    .glow-on-hover {
+      transition: all 0.3s ease;
+    }
+    .glow-on-hover:hover {
+      box-shadow: 0 0 20px rgba(147, 51, 234, 0.6),
+                  0 0 40px rgba(147, 51, 234, 0.3);
+      transform: translateY(-2px);
+    }
+    
+    .pulse-animation {
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    /* Nav hover effects */
+    .nav-link {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #9333EA;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .nav-logo {
+      transition: transform 0.3s ease;
+    }
+    .nav-logo:hover {
+      transform: rotate(360deg) scale(1.1);
+    }
+    
+    /* Button animations */
+    .btn-animated {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .btn-animated::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+    .btn-animated:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+    .btn-animated:hover {
+      transform: scale(1.05);
+    }
+    
+    /* Navbar animations */
+    nav {
+      animation: slideDown 0.5s ease-out;
+    }
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    /* Dark Theme Support */
+    @media (prefers-color-scheme: dark) {
+      .dark-theme {
+        background-color: #111827;
+        color: #F9FAFB;
+      }
+    }
+  </style>
+</head>

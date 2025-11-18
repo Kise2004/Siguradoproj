@@ -1,0 +1,49 @@
+{{> head }}
+<body class="bg-gradient-to-br from-blue-500 to-blue-700 min-h-screen flex items-center justify-center">
+  <div class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto text-center text-white">
+      <h1 class="text-6xl font-bold mb-4">🚨 SIGURADO</h1>
+      <p class="text-2xl mb-2">Smart Integrated Gloria Unified Response And Disaster Operations</p>
+      <p class="text-xl mb-8 opacity-90">Municipality of Gloria, Oriental Mindoro</p>
+      
+      <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-lg p-8 mb-8">
+        <h2 class="text-3xl font-bold mb-4">Disaster Management System</h2>
+        <p class="text-lg mb-6">
+          A centralized digital hub connecting local government units, barangay officials, 
+          and responders for quick and smooth emergency operations.
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <div class="bg-white bg-opacity-10 p-4 rounded">
+            <div class="text-4xl mb-2">📱</div>
+            <h3 class="font-bold mb-2">Real-time Reporting</h3>
+            <p class="text-sm">Report incidents instantly with GPS location and photo evidence</p>
+          </div>
+          <div class="bg-white bg-opacity-10 p-4 rounded">
+            <div class="text-4xl mb-2">🚨</div>
+            <h3 class="font-bold mb-2">Instant Alerts</h3>
+            <p class="text-sm">Automated notifications to responders and affected communities</p>
+          </div>
+          <div class="bg-white bg-opacity-10 p-4 rounded">
+            <div class="text-4xl mb-2">📊</div>
+            <h3 class="font-bold mb-2">Data-Driven</h3>
+            <p class="text-sm">Analytics and insights for better disaster preparedness</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="space-x-4">
+        <a href="/login" class="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition">
+          Login
+        </a>
+        <a href="/register" class="inline-block bg-blue-800 text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-900 transition">
+          Register
+        </a>
+      </div>
+      
+      <div class="mt-12 text-sm opacity-75">
+        <p>Serving 24 Barangays | Real-time Coordination | Community Resilience</p>
+      </div>
+    </div>
+  </div>
+{{> footer }}

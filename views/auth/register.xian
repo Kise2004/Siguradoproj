@@ -1,0 +1,153 @@
+{{> head}}
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  .animate-fadeInUp {
+    animation: fadeInUp 0.6s ease-out;
+  }
+  .animate-scaleIn {
+    animation: scaleIn 0.5s ease-out;
+  }
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  .animate-slideInLeft {
+    animation: slideInLeft 0.6s ease-out;
+  }
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+  .stagger-4 { animation-delay: 0.4s; }
+  .stagger-5 { animation-delay: 0.5s; }
+  .stagger-6 { animation-delay: 0.6s; }
+  .stagger-7 { animation-delay: 0.7s; }
+</style>
+<body class="bg-gradient-to-br from-purple-600 to-blue-600 min-h-screen flex items-center justify-center py-12 overflow-hidden">
+  <div class="w-full max-w-md animate-scaleIn">
+    <div class="bg-white rounded-2xl shadow-2xl p-8">
+      <div class="text-center mb-8 animate-fadeInUp">
+        <svg class="w-20 h-20 mx-auto mb-4 text-purple-600 animate-float" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+        </svg>
+        <h2 class="text-3xl font-bold text-gray-800 mb-2">Join SIGURADO</h2>
+        <p class="text-gray-600">Create your disaster response account</p>
+      </div>
+      
+      <form method="POST" action="/register" class="space-y-4">
+        <div class="animate-slideInLeft stagger-2">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
+          <input type="text" name="name" placeholder="Juan Dela Cruz" 
+                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition transform hover:scale-[1.02]" required />
+        </div>
+        
+        <div class="animate-slideInLeft stagger-3">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
+          <input type="email" name="email" placeholder="your.email@example.com" 
+                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition transform hover:scale-[1.02]" required />
+        </div>
+        
+        <div class="animate-slideInLeft stagger-4">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Password *</label>
+          <input type="password" name="password" placeholder="Create a strong password" 
+                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition transform hover:scale-[1.02]" required />
+        </div>
+        
+        <div class="animate-slideInLeft stagger-5">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Account Role *</label>
+          <select name="role" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition transform hover:scale-[1.02]" required>
+            <option value="citizen">Citizen - Report Incidents</option>
+            <option value="responder">Barangay Responder - Emergency Response</option>
+            <option value="official">Barangay Official - Local Coordination</option>
+            <option value="mdrrmo">MDRRMO Staff - System Management</option>
+          </select>
+        </div>
+        
+        <div class="animate-slideInLeft stagger-6">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Barangay ID (Optional)</label>
+          <input type="number" name="barangayId" placeholder="1-24" min="1" max="24"
+                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition transform hover:scale-[1.02]" />
+          <p class="text-xs text-gray-500 mt-1">Enter a number between 1-24 if you belong to a specific barangay</p>
+        </div>
+        
+        <button type="submit" class="animate-fadeInUp stagger-7 w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-blue-700 transition shadow-lg hover:shadow-xl mt-6 transform hover:scale-105 active:scale-95">
+          Create Account
+        </button>
+      </form>
+      
+      <div class="mt-6 pt-6 border-t text-center animate-fadeInUp stagger-7">
+        <p class="text-gray-600 mb-3">Already have an account?</p>
+        <a href="/login" class="text-purple-600 font-semibold hover:underline transition-all hover:scale-110 inline-block">Login to Dashboard</a>
+      </div>
+      
+      <div class="mt-6 text-center animate-fadeInUp stagger-7">
+        <a href="/" class="text-sm text-gray-500 hover:text-gray-700 transition-all hover:scale-110 inline-block">← Back to Home</a>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    {{#if success_msg}}
+      Swal.fire({
+        icon: 'success',
+        title: 'Registration Successful!',
+        text: '{{success_msg}}',
+        confirmButtonColor: '#2563eb',
+        confirmButtonText: 'Continue',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        }
+      });
+    {{/if}}
+    {{#if error_msg}}
+      Swal.fire({
+        icon: 'error',
+        title: 'Registration Failed',
+        text: '{{error_msg}}',
+        confirmButtonColor: '#dc2626',
+        confirmButtonText: 'Try Again',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        }
+      });
+    {{/if}}
+  </script>
+</body>
+</html>
