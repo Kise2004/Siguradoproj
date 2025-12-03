@@ -25,9 +25,12 @@
 
 import { DataTypes } from "sequelize";
 import { sequelize } from "./db.js";
+import { Barangay } from "./Barangay.js";
+import { User } from "./userModel.js";
 
 export const Incident = sequelize.define("incident", {
-  citizenId: { type: DataTypes.INTEGER, allowNull: false },
+  citizenId: { type: DataTypes.INTEGER, allowNull: true },
+  userId: { type: DataTypes.INTEGER, allowNull: true },
   barangayId: { type: DataTypes.INTEGER, allowNull: false },
   type: { type: DataTypes.ENUM('flood', 'typhoon', 'earthquake', 'fire', 'landslide', 'accident', 'other'), allowNull: false },
   severity: { type: DataTypes.ENUM('low', 'medium', 'high', 'critical'), defaultValue: 'medium' },
@@ -41,5 +44,12 @@ export const Incident = sequelize.define("incident", {
   affectedFamilies: { type: DataTypes.INTEGER, defaultValue: 0 },
   reportedAt: { type: DataTypes.DATE, defaultValue: DataTypes.NOW }
 });
+
+// Define associations
+Incident.belongsTo(Barangay, { foreignKey: 'barangayId' });
+Barangay.hasMany(Incident, { foreignKey: 'barangayId' });
+
+Incident.belongsTo(User, { foreignKey: 'userId' });
+User.hasMany(Incident, { foreignKey: 'userId' });
 
 export { sequelize };

@@ -32,11 +32,16 @@ import fs from 'fs';
 import hbs from "hbs";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import { createServer } from "http";
+import { Server } from "socket.io";
+import { Chat } from "./models/Chat.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const app = express();
+const httpServer = createServer(app);
+const io = new Server(httpServer);
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
@@ -54,6 +59,15 @@ app.engine("xian", async (filePath, options, callback) => {
   try {
      const originalPartialsDir = hbs.partialsDir;
     hbs.partialsDir = path.join(__dirname, 'views');
+    
+    // Register helper for JSON stringify
+    hbs.registerHelper('json', function(context) {
+      return JSON.stringify(context);
+    });
+    
+    hbs.registerHelper('eq', function(a, b) {
+      return a === b;
+    });
 
     const result = await new Promise((resolve, reject) => {
       hbs.__express(filePath, options, (err, html) => {
@@ -103,8 +117,51 @@ fs.readdir(partialsDir, (err, files) => {
 
 app.use("/", router);
 
+// Socket.IO for real-time chat
+io.on("connection", (socket) => {
+  console.log("User connected:", socket.id);
+
+  // Join incident room
+  socket.on("join-incident", (incidentId) => {
+    socket.join(`incident-${incidentId}`);
+    console.log(`User joined incident room: ${incidentId}`);
+  });
+
+  // Handle chat messages
+  socket.on("send-message", async (data) => {
+    try {
+      const { incidentId, userId, userName, userRole, message } = data;
+      
+      // Save message to database
+      const chat = await Chat.create({
+        incidentId,
+        userId,
+        userName,
+        userRole,
+        message
+      });
+
+      // Broadcast to all users in the incident room
+      io.to(`incident-${incidentId}`).emit("new-message", {
+        id: chat.id,
+        userName: chat.userName,
+        userRole: chat.userRole,
+        message: chat.message,
+        timestamp: chat.timestamp
+      });
+    } catch (err) {
+      console.error("Error saving message:", err);
+    }
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected:", socket.id);
+  });
+});
+
 export default app;
+export { io };
 
 if (!process.env.ELECTRON) {
-  app.listen(PORT, () => console.log(`🔥 XianFire running at http://localhost:${PORT}`));
+  httpServer.listen(PORT, () => console.log(`🔥 XianFire running at http://localhost:${PORT}`));
 }

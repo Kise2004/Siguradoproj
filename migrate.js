@@ -34,6 +34,7 @@ import { Resource } from "./models/Resource.js";
 import { Incident } from "./models/Incident.js";
 import { Report } from "./models/Report.js";
 import { Notification } from "./models/Notification.js";
+import { Chat } from "./models/Chat.js";
 import inquirer from "inquirer";
 
 // Server-level connection (no database selected)
@@ -81,10 +82,16 @@ try {
   
   Incident.hasMany(Notification, { foreignKey: 'incidentId' });
   Notification.belongsTo(Incident, { foreignKey: 'incidentId' });
-  
+
+  Incident.hasMany(Chat, { foreignKey: 'incidentId' });
+  Chat.belongsTo(Incident, { foreignKey: 'incidentId' });
+
   User.belongsTo(Barangay, { foreignKey: 'barangayId' });
   Barangay.hasMany(User, { foreignKey: 'barangayId' });
-  
+
+  User.hasMany(Incident, { foreignKey: 'userId' });
+  Incident.belongsTo(User, { foreignKey: 'userId' });
+
   await sequelize.sync({ force: true }); // Drops and recreates tables
   console.log("✅ Tables created for all models!");
   
@@ -118,10 +125,143 @@ try {
   
   await Barangay.bulkCreate(barangays);
   console.log("✅ Seeded 24 barangays for Gloria, Oriental Mindoro!");
-  
+
+  // Seed default user accounts
+  const bcrypt = await import('bcrypt');
+  const defaultPassword = await bcrypt.default.hash('password123', 10);
+
+  const defaultUsers = [
+    {
+      name: 'Admin User',
+      email: 'admin@sigurado.com',
+      password: defaultPassword,
+      role: 'mdrrmo',
+      barangayId: 21 // Poblacion
+    },
+    {
+      name: 'Juan Dela Cruz',
+      email: 'citizen@sigurado.com',
+      password: defaultPassword,
+      role: 'citizen',
+      barangayId: 21
+    },
+    {
+      name: 'Pedro Responder',
+      email: 'responder@sigurado.com',
+      password: defaultPassword,
+      role: 'responder',
+      barangayId: 21
+    },
+    {
+      name: 'Maria Official',
+      email: 'official@sigurado.com',
+      password: defaultPassword,
+      role: 'official',
+      barangayId: 21
+    }
+  ];
+
+  await User.bulkCreate(defaultUsers);
+  console.log("✅ Seeded default user accounts!");
+  console.log("\n📧 Default Accounts:");
+  console.log("  MDRRMO:    admin@sigurado.com / password123");
+  console.log("  Citizen:   citizen@sigurado.com / password123");
+  console.log("  Responder: responder@sigurado.com / password123");
+  console.log("  Official:  official@sigurado.com / password123\n");
+
+  // Seed sample incidents
+  const sampleIncidents = [
+    {
+      userId: 2, // citizen user
+      barangayId: 21, // Poblacion
+      type: 'flood',
+      severity: 'high',
+      description: 'Heavy flooding in main street area affecting multiple households',
+      location: 'Main Street, Poblacion',
+      latitude: 13.0123,
+      longitude: 121.5045,
+      status: 'reported',
+      casualties: 0,
+      affectedFamilies: 15,
+      reportedAt: new Date('2025-12-01 08:30:00')
+    },
+    {
+      userId: 2,
+      barangayId: 18, // Narra
+      type: 'typhoon',
+      severity: 'critical',
+      description: 'Strong winds and heavy rain causing damage to roofs and fallen trees',
+      location: 'Barangay Narra',
+      latitude: 13.0234,
+      longitude: 121.5123,
+      status: 'verified',
+      casualties: 0,
+      affectedFamilies: 25,
+      reportedAt: new Date('2025-12-02 14:15:00')
+    },
+    {
+      userId: 2,
+      barangayId: 7, // Banus
+      type: 'landslide',
+      severity: 'critical',
+      description: 'Landslide blocking main road, several houses at risk',
+      location: 'Sitio Malaki, Banus',
+      latitude: 13.0345,
+      longitude: 121.4987,
+      status: 'responding',
+      casualties: 2,
+      affectedFamilies: 8,
+      reportedAt: new Date('2025-12-02 16:45:00')
+    },
+    {
+      userId: 2,
+      barangayId: 11, // Kawit
+      type: 'fire',
+      severity: 'high',
+      description: 'Residential fire affecting 3 houses',
+      location: 'Purok 3, Kawit',
+      latitude: 13.0156,
+      longitude: 121.5234,
+      status: 'resolved',
+      casualties: 0,
+      affectedFamilies: 3,
+      reportedAt: new Date('2025-11-30 19:20:00')
+    },
+    {
+      userId: 2,
+      barangayId: 1, // Agos
+      type: 'accident',
+      severity: 'medium',
+      description: 'Vehicle accident on the highway, minor injuries',
+      location: 'National Highway, Agos',
+      latitude: 13.0067,
+      longitude: 121.5156,
+      status: 'resolved',
+      casualties: 0,
+      affectedFamilies: 1,
+      reportedAt: new Date('2025-11-29 10:30:00')
+    },
+    {
+      userId: 2,
+      barangayId: 21, // Poblacion
+      type: 'earthquake',
+      severity: 'medium',
+      description: 'Minor earthquake felt, no major damage reported',
+      location: 'Poblacion',
+      latitude: 13.0089,
+      longitude: 121.5078,
+      status: 'closed',
+      casualties: 0,
+      affectedFamilies: 0,
+      reportedAt: new Date('2025-11-28 03:45:00')
+    }
+  ];
+
+  await Incident.bulkCreate(sampleIncidents);
+  console.log("✅ Seeded sample incidents!\n");
+
 } catch (err) {
   console.error("❌ Migration failed:", err);
 } finally {
   process.exit();
 }
-

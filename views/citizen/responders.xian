@@ -1,7 +1,7 @@
 {{> head}}
 <body class="bg-gray-50 min-h-screen flex">
   <!-- Sidebar -->
-  <aside class="w-64 bg-gradient-to-b from-blue-600 to-purple-600 text-white fixed h-full shadow-2xl z-50">
+  <aside class="w-64 bg-gradient-to-b from-green-600 to-emerald-600 text-white fixed h-full shadow-2xl z-50">
     <div class="p-6">
       <div class="flex items-center space-x-3 mb-8">
         <svg class="w-10 h-10 nav-logo" fill="currentColor" viewBox="0 0 20 20">
@@ -52,7 +52,7 @@
       <div class="bg-white rounded-xl shadow-lg overflow-hidden">
         <div class="overflow-x-auto">
           <table class="min-w-full">
-            <thead class="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+            <thead class="bg-gradient-to-r from-green-600 to-emerald-600 text-white">
               <tr>
                 <th class="px-6 py-4 text-left text-sm font-semibold">Name</th>
                 <th class="px-6 py-4 text-left text-sm font-semibold">Badge</th>
@@ -63,7 +63,7 @@
             </thead>
             <tbody class="divide-y divide-gray-200">
               {{#each responders}}
-                <tr class="hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition">
+                <tr class="hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50 transition">
                   <td class="px-6 py-4 text-gray-800 font-medium">{{this.firstName}} {{this.lastName}}</td>
                   <td class="px-6 py-4 text-gray-600">{{this.badgeNumber}}</td>
                   <td class="px-6 py-4 text-gray-600">{{this.contactNumber}}</td>

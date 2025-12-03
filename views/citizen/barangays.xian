@@ -1,7 +1,7 @@
 {{> head}}
 <body class="bg-gray-50 min-h-screen flex">
   <!-- Sidebar -->
-  <aside class="w-64 bg-gradient-to-b from-blue-600 to-purple-600 text-white fixed h-full shadow-2xl z-50">
+  <aside class="w-64 bg-gradient-to-b from-green-600 to-emerald-600 text-white fixed h-full shadow-2xl z-50">
     <div class="p-6">
       <div class="flex items-center space-x-3 mb-8">
         <svg class="w-10 h-10 nav-logo" fill="currentColor" viewBox="0 0 20 20">

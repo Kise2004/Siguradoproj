@@ -1,18 +1,56 @@
 {{> head }}
-<body class="bg-gradient-to-br from-blue-500 to-blue-700 min-h-screen flex items-center justify-center">
+<style>
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+  }
+  .modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease-out;
+  }
+  .modal-content {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease-out;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+</style>
+<body class="bg-gradient-to-br from-green-500 to-emerald-700 min-h-screen flex items-center justify-center">
   <div class="container mx-auto px-4 py-8">
     <div class="max-w-4xl mx-auto text-center text-white">
       <h1 class="text-6xl font-bold mb-4">🚨 SIGURADO</h1>
       <p class="text-2xl mb-2">Smart Integrated Gloria Unified Response And Disaster Operations</p>
       <p class="text-xl mb-8 opacity-90">Municipality of Gloria, Oriental Mindoro</p>
-      
+
       <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-lg p-8 mb-8">
         <h2 class="text-3xl font-bold mb-4">Disaster Management System</h2>
         <p class="text-lg mb-6">
-          A centralized digital hub connecting local government units, barangay officials, 
+          A centralized digital hub connecting local government units, barangay officials,
           and responders for quick and smooth emergency operations.
         </p>
-        
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <div class="bg-white bg-opacity-10 p-4 rounded">
             <div class="text-4xl mb-2">📱</div>
@@ -31,19 +69,172 @@
           </div>
         </div>
       </div>
-      
+
       <div class="space-x-4">
-        <a href="/login" class="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition">
+        <button onclick="openLoginModal()" class="inline-block bg-white text-green-600 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition shadow-lg hover:scale-105 transform">
           Login
-        </a>
-        <a href="/register" class="inline-block bg-blue-800 text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-900 transition">
+        </button>
+        <button onclick="openRegisterModal()" class="inline-block bg-green-800 text-white px-8 py-3 rounded-lg font-bold hover:bg-green-900 transition shadow-lg hover:scale-105 transform">
           Register
-        </a>
+        </button>
       </div>
-      
+
       <div class="mt-12 text-sm opacity-75">
         <p>Serving 24 Barangays | Real-time Coordination | Community Resilience</p>
       </div>
     </div>
   </div>
+
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">Login to SIGURADO</h2>
+        <button onclick="closeLoginModal()" class="text-gray-500 hover:text-gray-700 text-3xl">&times;</button>
+      </div>
+      
+      <form method="POST" action="/login" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+          <input type="email" name="email" placeholder="your.email@example.com"
+                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" required />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+          <input type="password" name="password" placeholder="Enter your password"
+                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" required />
+        </div>
+
+        <button type="submit" class="w-full bg-gradient-to-r from-green-500 to-emerald-500 text-white py-3 rounded-lg font-semibold hover:from-green-600 hover:to-emerald-600 transition shadow-lg">
+          Login to Dashboard
+        </button>
+      </form>
+
+      <div class="mt-4 text-center">
+        <a href="/forgot-password" class="text-sm text-green-600 hover:underline">Forgot Password?</a>
+      </div>
+
+      <div class="mt-4 pt-4 border-t text-center">
+        <p class="text-gray-600 mb-2">Don't have an account?</p>
+        <button onclick="switchToRegister()" class="text-green-600 font-semibold hover:underline">Register for SIGURADO</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Register Modal -->
+  <div id="registerModal" class="modal">
+    <div class="modal-content">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">Join SIGURADO</h2>
+        <button onclick="closeRegisterModal()" class="text-gray-500 hover:text-gray-700 text-3xl">&times;</button>
+      </div>
+
+      <form method="POST" action="/register" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
+          <input type="text" name="name" placeholder="Juan Dela Cruz"
+                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" required />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
+          <input type="email" name="email" placeholder="your.email@example.com"
+                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" required />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Password *</label>
+          <input type="password" name="password" placeholder="Create a strong password"
+                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" required />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Account Role *</label>
+          <select name="role" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" required>
+            <option value="citizen">Citizen - Report Incidents</option>
+            <option value="responder">Barangay Responder - Emergency Response</option>
+            <option value="official">Barangay Official - Local Coordination</option>
+            <option value="mdrrmo">MDRRMO Staff - System Management</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Barangay ID (Optional)</label>
+          <input type="number" name="barangayId" placeholder="1-24" min="1" max="24"
+                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" />
+          <p class="text-xs text-gray-500 mt-1">Enter a number between 1-24 if you belong to a specific barangay</p>
+        </div>
+
+        <button type="submit" class="w-full bg-gradient-to-r from-green-500 to-emerald-500 text-white py-3 rounded-lg font-semibold hover:from-green-600 hover:to-emerald-600 transition shadow-lg">
+          Create Account
+        </button>
+      </form>
+
+      <div class="mt-4 pt-4 border-t text-center">
+        <p class="text-gray-600 mb-2">Already have an account?</p>
+        <button onclick="switchToLogin()" class="text-green-600 font-semibold hover:underline">Login to Dashboard</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openLoginModal() {
+      document.getElementById('loginModal').classList.add('active');
+    }
+    
+    function closeLoginModal() {
+      document.getElementById('loginModal').classList.remove('active');
+    }
+    
+    function openRegisterModal() {
+      document.getElementById('registerModal').classList.add('active');
+    }
+    
+    function closeRegisterModal() {
+      document.getElementById('registerModal').classList.remove('active');
+    }
+    
+    function switchToRegister() {
+      closeLoginModal();
+      openRegisterModal();
+    }
+    
+    function switchToLogin() {
+      closeRegisterModal();
+      openLoginModal();
+    }
+    
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+      const loginModal = document.getElementById('loginModal');
+      const registerModal = document.getElementById('registerModal');
+      if (event.target === loginModal) {
+        closeLoginModal();
+      }
+      if (event.target === registerModal) {
+        closeRegisterModal();
+      }
+    }
+    
+    {{#if error_msg}}
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: '{{error_msg}}',
+        confirmButtonColor: '#10b981'
+      });
+      openLoginModal();
+    {{/if}}
+    
+    {{#if success_msg}}
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: '{{success_msg}}',
+        confirmButtonColor: '#10b981',
+        timer: 2000
+      });
+    {{/if}}
+  </script>
 {{> footer }}

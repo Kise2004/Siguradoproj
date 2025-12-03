@@ -30,6 +30,7 @@ import { loginPage, registerPage, forgotPasswordPage, dashboardPage, loginUser, 
 import { incidentController } from "../controllers/incidentController.js";
 import { responderController } from "../controllers/responderController.js";
 import { barangayController } from "../controllers/barangayController.js";
+import { chatController } from "../controllers/chatController.js";
 
 const router = express.Router();
 
@@ -54,6 +55,7 @@ router.post("/incidents/:id/status", incidentController.updateStatus);
 
 // Responder routes
 router.get("/responders", responderController.listResponders);
+router.post("/responders", responderController.addResponder);
 router.get("/responder-dashboard", responderController.responderDashboard);
 router.post("/responder/report", responderController.submitReport);
 router.post("/responder/status", responderController.updateStatus);
@@ -63,5 +65,8 @@ router.get("/barangays", barangayController.listBarangays);
 router.get("/barangays/:id", barangayController.viewBarangay);
 router.get("/resources", barangayController.listResources);
 router.post("/resources", barangayController.addResource);
+
+// Chat routes
+router.get("/api/chat/:incidentId", chatController.getMessages);
 
 export default router;

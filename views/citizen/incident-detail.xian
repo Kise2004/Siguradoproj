@@ -1,0 +1,228 @@
+{{> head}}
+<style>
+  #map { height: 400px; width: 100%; }
+  .chat-container { height: 400px; overflow-y: auto; }
+  .message-bubble {
+    max-width: 70%;
+    padding: 10px 15px;
+    border-radius: 18px;
+    margin-bottom: 10px;
+  }
+  .message-own {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    margin-left: auto;
+  }
+  .message-other {
+    background: #f3f4f6;
+    color: #1f2937;
+  }
+</style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<body class="bg-gray-50 min-h-screen flex">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-gradient-to-b from-green-600 to-emerald-600 text-white fixed h-full shadow-2xl z-50">
+    <div class="p-6">
+      <div class="flex items-center space-x-3 mb-8">
+        <svg class="w-10 h-10 nav-logo" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+        </svg>
+        <div>
+          <h1 class="text-xl font-bold">SIGURADO</h1>
+          <p class="text-xs opacity-75">Gloria, Oriental Mindoro</p>
+        </div>
+      </div>
+      <nav class="space-y-3">
+        <a href="/dashboard" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="/incidents" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-white bg-opacity-20 hover:bg-opacity-30 transition">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+          <span>Incidents</span>
+        </a>
+        <a href="/barangays" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/></svg>
+          <span>Barangays</span>
+        </a>
+        <a href="/logout" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-red-500 bg-opacity-80 hover:bg-opacity-100 transition mt-8">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"/></svg>
+          <span>Logout</span>
+        </a>
+      </nav>
+    </div>
+  </aside>
+
+  <div class="flex-1 ml-64 flex flex-col min-h-screen">
+    <div class="flex-1 p-8">
+      <div class="mb-6">
+        <a href="/incidents" class="text-green-600 hover:text-green-800 flex items-center gap-2 mb-4">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
+          </svg>
+          Back to Incidents
+        </a>
+        <h2 class="text-3xl font-bold text-gray-800">Incident Details #{{incident.id}}</h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <!-- Incident Information -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <h3 class="text-xl font-bold mb-4 text-gray-800">Information</h3>
+          <div class="space-y-3">
+            <div>
+              <span class="font-semibold text-gray-600">Type:</span>
+              <span class="ml-2 capitalize">{{incident.type}}</span>
+            </div>
+            <div>
+              <span class="font-semibold text-gray-600">Severity:</span>
+              <span class="ml-2 px-3 py-1 rounded text-sm font-medium
+                {{#if (eq incident.severity 'critical')}}bg-red-100 text-red-800{{/if}}
+                {{#if (eq incident.severity 'high')}}bg-orange-100 text-orange-800{{/if}}
+                {{#if (eq incident.severity 'medium')}}bg-yellow-100 text-yellow-800{{/if}}
+                {{#if (eq incident.severity 'low')}}bg-green-100 text-green-800{{/if}}
+              ">
+                {{incident.severity}}
+              </span>
+            </div>
+            <div>
+              <span class="font-semibold text-gray-600">Status:</span>
+              <span class="ml-2 px-3 py-1 rounded text-sm font-medium capitalize
+                {{#if (eq incident.status 'reported')}}bg-green-100 text-green-800{{/if}}
+                {{#if (eq incident.status 'verified')}}bg-yellow-100 text-yellow-800{{/if}}
+                {{#if (eq incident.status 'responding')}}bg-orange-100 text-orange-800{{/if}}
+                {{#if (eq incident.status 'resolved')}}bg-green-100 text-green-800{{/if}}
+                {{#if (eq incident.status 'closed')}}bg-gray-100 text-gray-800{{/if}}
+              ">
+                {{incident.status}}
+              </span>
+            </div>
+            <div>
+              <span class="font-semibold text-gray-600">Location:</span>
+              <span class="ml-2">{{incident.location}}</span>
+            </div>
+            <div>
+              <span class="font-semibold text-gray-600">Barangay:</span>
+              <span class="ml-2">{{incident.barangay.name}}</span>
+            </div>
+            <div>
+              <span class="font-semibold text-gray-600">Description:</span>
+              <p class="mt-2 text-gray-700">{{incident.description}}</p>
+            </div>
+            <div>
+              <span class="font-semibold text-gray-600">Casualties:</span>
+              <span class="ml-2">{{incident.casualties}}</span>
+            </div>
+            <div>
+              <span class="font-semibold text-gray-600">Affected Families:</span>
+              <span class="ml-2">{{incident.affectedFamilies}}</span>
+            </div>
+            <div>
+              <span class="font-semibold text-gray-600">Reported At:</span>
+              <span class="ml-2">{{incident.reportedAt}}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Real-time Chat -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <h3 class="text-xl font-bold mb-4 text-gray-800">Communication Hub</h3>
+          <div class="chat-container bg-gray-50 rounded-lg p-4 mb-4" id="chatMessages">
+            {{#each messages}}
+              <div class="flex {{#if (eq this.userId ../userId)}}justify-end{{else}}justify-start{{/if}}">
+                <div class="message-bubble {{#if (eq this.userId ../userId)}}message-own{{else}}message-other{{/if}}">
+                  <div class="text-xs font-semibold mb-1">{{this.userName}} ({{this.userRole}})</div>
+                  <div>{{this.message}}</div>
+                  <div class="text-xs opacity-75 mt-1">{{this.timestamp}}</div>
+                </div>
+              </div>
+            {{/each}}
+          </div>
+          <div class="flex gap-2">
+            <input type="text" id="messageInput" placeholder="Type your message..." 
+              class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+            <button onclick="sendMessage()" class="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-6 py-2 rounded-lg hover:scale-105 transition-transform">
+              Send
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Map -->
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <h3 class="text-xl font-bold mb-4 text-gray-800">Incident Location Map</h3>
+        <div id="map"></div>
+      </div>
+    </div>
+    {{> footer}}
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const incidentId = parseInt('{{incident.id}}');
+    const userId = parseInt('{{userId}}');
+    const userName = "{{#if incident.citizen}}{{incident.citizen.firstName}} {{incident.citizen.lastName}}{{else}}User{{/if}}";
+    const userRole = "{{userRole}}";
+    
+    // Initialize Socket.IO
+    const socket = io();
+    socket.emit('join-incident', incidentId);
+
+    // Initialize Map
+    const lat = parseFloat('{{#if incident.latitude}}{{incident.latitude}}{{else}}13.5{{/if}}');
+    const lng = parseFloat('{{#if incident.longitude}}{{incident.longitude}}{{else}}121.5{{/if}}');
+    
+    const map = L.map('map').setView([lat, lng], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Add marker for incident location
+    const marker = L.marker([lat, lng]).addTo(map);
+    marker.bindPopup('<b>{{incident.type}}</b><br>{{incident.location}}').openPopup();
+
+    // Handle sending messages
+    function sendMessage() {
+      const messageInput = document.getElementById('messageInput');
+      const message = messageInput.value.trim();
+      
+      if (message) {
+        socket.emit('send-message', {
+          incidentId,
+          userId,
+          userName,
+          userRole,
+          message
+        });
+        messageInput.value = '';
+      }
+    }
+
+    // Handle Enter key for sending messages
+    document.getElementById('messageInput').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    });
+
+    // Handle receiving messages
+    socket.on('new-message', (data) => {
+      const chatMessages = document.getElementById('chatMessages');
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `flex ${data.userId === userId ? 'justify-end' : 'justify-start'}`;
+      
+      const bubbleDiv = document.createElement('div');
+      bubbleDiv.className = `message-bubble ${data.userId === userId ? 'message-own' : 'message-other'}`;
+      bubbleDiv.innerHTML = `
+        <div class="text-xs font-semibold mb-1">${data.userName} (${data.userRole})</div>
+        <div>${data.message}</div>
+        <div class="text-xs opacity-75 mt-1">${new Date(data.timestamp).toLocaleString()}</div>
+      `;
+      
+      messageDiv.appendChild(bubbleDiv);
+      chatMessages.appendChild(messageDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    });
+  </script>
+</body>

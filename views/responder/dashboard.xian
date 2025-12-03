@@ -1,7 +1,7 @@
 {{> head}}
 <body class="bg-gray-50 min-h-screen flex">
   <!-- Sidebar -->
-  <aside class="w-64 bg-gradient-to-b from-blue-600 to-purple-600 text-white fixed h-full shadow-2xl z-50">
+  <aside class="w-64 bg-gradient-to-b from-green-600 to-emerald-600 text-white fixed h-full shadow-2xl z-50">
     <div class="p-6">
       <div class="flex items-center space-x-3 mb-8">
         <svg class="w-10 h-10 nav-logo" fill="currentColor" viewBox="0 0 20 20">
@@ -52,12 +52,12 @@
     <script>Swal.fire({ icon: 'error', title: 'Error!', text: '{{error_msg}}', confirmButtonColor: '#dc2626' });</script>
     {{/if}}
 
-    <div class="mb-8 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6 border-l-4 border-blue-600">
+    <div class="mb-8 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 border-l-4 border-green-600">
       <h1 class="text-4xl font-bold mb-2 text-gray-800">Emergency Responder Dashboard</h1>
       <p class="text-gray-600 text-lg">Monitor and respond to emergency incidents</p>
       {{#if user}}
         <div class="mt-4 flex items-center gap-2">
-          <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
             <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
           </svg>
           <p class="text-gray-700"><strong>{{user.name}}</strong> <span class="text-sm text-gray-500">(Emergency Responder)</span></p>
@@ -98,10 +98,10 @@
         <div class="flex items-center justify-between">
           <div>
             <p class="text-gray-500 text-sm">Response Time</p>
-            <h3 class="text-3xl font-bold text-blue-600">12m</h3>
+            <h3 class="text-3xl font-bold text-green-600">12m</h3>
           </div>
-          <div class="bg-blue-100 rounded-full p-3">
-            <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+          <div class="bg-green-100 rounded-full p-3">
+            <svg class="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
             </svg>
           </div>
@@ -122,11 +122,11 @@
         </div>
       </a>
 
-      <a href="/profile" class="block bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl p-6 text-white hover:scale-105 transition-transform duration-300 shadow-lg hover:shadow-2xl">
+      <a href="/profile" class="block bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl p-6 text-white hover:scale-105 transition-transform duration-300 shadow-lg hover:shadow-2xl">
         <div class="flex items-center justify-between">
           <div>
             <h3 class="text-2xl font-bold mb-2">Update Profile</h3>
-            <p class="text-blue-50">Manage your responder information</p>
+            <p class="text-green-50">Manage your responder information</p>
           </div>
           <svg class="w-12 h-12 opacity-80" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
@@ -138,7 +138,7 @@
     <div class="bg-white rounded-xl shadow-lg p-6">
       <h2 class="text-2xl font-bold text-gray-800 mb-4">Recent Activity</h2>
       <div class="space-y-4">
-        <div class="border-l-4 border-blue-600 bg-blue-50 p-4 rounded">
+        <div class="border-l-4 border-green-600 bg-green-50 p-4 rounded">
           <div class="flex justify-between items-start">
             <div>
               <p class="font-semibold text-gray-800">Fire incident reported</p>

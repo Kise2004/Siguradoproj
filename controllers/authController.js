@@ -33,38 +33,82 @@ export const loginPage = (req, res) => {
   const success_msg = req.session.success_msg;
   delete req.session.error_msg;
   delete req.session.success_msg;
-  res.render("auth/login", { title: "Login", error_msg, success_msg });
+  res.render("landing", { title: "SIGURADO - Login", error_msg, success_msg, showLoginModal: true });
 };
 export const registerPage = (req, res) => {
   const error_msg = req.session.error_msg;
   const success_msg = req.session.success_msg;
   delete req.session.error_msg;
   delete req.session.success_msg;
-  res.render("auth/register", { title: "Register", error_msg, success_msg });
+  res.render("landing", { title: "SIGURADO - Register", error_msg, success_msg, showRegisterModal: true });
 };
-export const forgotPasswordPage = (req, res) => res.render("auth/forgotpassword", { title: "Forgot Password" });
+export const forgotPasswordPage = (req, res) => res.redirect("/");
 export const dashboardPage = async (req, res) => {
   if (!req.session.userId) return res.redirect("/login");
-  
+
   const user = await User.findByPk(req.session.userId);
-  
+
   if (!user) return res.redirect("/login");
-  
+
+  // Import models for dashboard data
+  const { Incident } = await import("../models/Incident.js");
+  const { Barangay } = await import("../models/Barangay.js");
+  const { Responder } = await import("../models/Responder.js");
+  const { Resource } = await import("../models/Resource.js");
+
+  // Fetch dashboard statistics
+  const totalIncidents = await Incident.count();
+  const activeIncidents = await Incident.count({ where: { status: ['reported', 'verified', 'responding'] } });
+  const resolvedIncidents = await Incident.count({ where: { status: ['resolved', 'closed'] } });
+  const totalBarangays = await Barangay.count();
+  const totalResponders = await Responder.count();
+  const totalResources = await Resource.count();
+
+  // Get recent incidents
+  const recentIncidents = await Incident.findAll({
+    include: [{ model: Barangay, attributes: ['name'] }],
+    order: [['reportedAt', 'DESC']],
+    limit: 5
+  });
+
+  // Prepare dashboard data
+  const dashboardData = {
+    title: "Dashboard",
+    user,
+    stats: {
+      totalIncidents,
+      activeIncidents,
+      resolvedIncidents,
+      totalBarangays,
+      totalResponders,
+      totalResources
+    },
+    recentIncidents
+  };
+
   // Role-based dashboard routing
   let viewPath = "citizen/dashboard";
-  
+
   if (user.role === 'responder') {
     viewPath = "responder/dashboard";
   } else if (user.role === 'mdrrmo') {
     viewPath = "mdrrmo/dashboard";
+    // Get additional MDRRMO-specific data
+    const barangays = await Barangay.findAll({ limit: 24 });
+    dashboardData.barangays = barangays;
   } else if (user.role === 'official') {
     viewPath = "official/dashboard";
+    // Get barangay-specific data for official
+    if (user.barangayId) {
+      const barangay = await Barangay.findByPk(user.barangayId);
+      const barangayIncidents = await Incident.count({ where: { barangayId: user.barangayId } });
+      dashboardData.barangay = barangay;
+      dashboardData.stats.barangayIncidents = barangayIncidents;
+    }
   }
-  
-  res.render(viewPath, { title: "Dashboard", user });
-};
 
-export const loginUser = async (req, res) => {
+  res.render(viewPath, dashboardData);
+};export const loginUser = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ where: { email } });
   if (!user) {
@@ -113,5 +157,5 @@ export const registerUser = async (req, res) => {
 
 export const logoutUser = (req, res) => {
   req.session.destroy();
-  res.redirect("/login");
+  res.redirect("/");
 };

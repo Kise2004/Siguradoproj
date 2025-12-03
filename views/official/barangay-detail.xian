@@ -1,7 +1,7 @@
 {{> head}}
 <body class="bg-gray-50 min-h-screen flex">
   <!-- Sidebar -->
-  <aside class="w-64 bg-gradient-to-b from-blue-600 to-purple-600 text-white fixed h-full shadow-2xl z-50">
+  <aside class="w-64 bg-gradient-to-b from-green-600 to-emerald-600 text-white fixed h-full shadow-2xl z-50">
     <div class="p-6">
       <div class="flex items-center space-x-3 mb-8">
         <svg class="w-10 h-10 nav-logo" fill="currentColor" viewBox="0 0 20 20">
@@ -46,7 +46,7 @@
   <div class="flex-1 ml-64 flex flex-col min-h-screen">
     <div class="flex-1 p-8">
     <div class="mb-6">
-      <a href="/dashboard" class="text-blue-600 hover:text-purple-600 flex items-center space-x-2 mb-4 transition">
+      <a href="/dashboard" class="text-green-600 hover:text-emerald-600 flex items-center space-x-2 mb-4 transition">
         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
           <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
         </svg>
@@ -62,9 +62,9 @@
         <div class="flex items-center justify-between">
           <div>
             <p class="text-gray-500 text-sm">Citizens</p>
-            <p class="text-3xl font-bold text-blue-600 mt-2">{{citizenCount}}</p>
+            <p class="text-3xl font-bold text-green-600 mt-2">{{citizenCount}}</p>
           </div>
-          <svg class="w-12 h-12 text-blue-500 opacity-20" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-12 h-12 text-green-500 opacity-20" fill="currentColor" viewBox="0 0 20 20">
             <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
           </svg>
         </div>
@@ -86,9 +86,9 @@
         <div class="flex items-center justify-between">
           <div>
             <p class="text-gray-500 text-sm">Resources</p>
-            <p class="text-3xl font-bold text-purple-600 mt-2">{{resources.length}}</p>
+            <p class="text-3xl font-bold text-emerald-600 mt-2">{{resources.length}}</p>
           </div>
-          <svg class="w-12 h-12 text-purple-500 opacity-20" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-12 h-12 text-emerald-500 opacity-20" fill="currentColor" viewBox="0 0 20 20">
             <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/>
           </svg>
         </div>
@@ -120,14 +120,14 @@
         {{#if incidents.length}}
           <div class="space-y-3">
             {{#each incidents}}
-              <div class="border-l-4 border-{{#if (eq this.severity 'critical')}}red{{else if (eq this.severity 'high')}}orange{{else if (eq this.severity 'medium')}}yellow{{else}}green{{/if}}-500 pl-4 py-2 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition rounded-r">
+              <div class="border-l-4 border-{{#if (eq this.severity 'critical')}}red{{else if (eq this.severity 'high')}}orange{{else if (eq this.severity 'medium')}}yellow{{else}}green{{/if}}-500 pl-4 py-2 hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50 transition rounded-r">
                 <p class="font-semibold text-gray-800">{{this.type}}</p>
                 <p class="text-sm text-gray-600">{{this.location}}</p>
                 <div class="flex items-center justify-between mt-2">
                   <span class="text-xs text-gray-500">{{this.reportedAt}}</span>
                   <span class="px-3 py-1 rounded-full text-xs font-semibold capitalize
                     {{#if (eq this.status 'pending')}}bg-yellow-500 text-white{{/if}}
-                    {{#if (eq this.status 'responding')}}bg-blue-500 text-white{{/if}}
+                    {{#if (eq this.status 'responding')}}bg-green-500 text-white{{/if}}
                     {{#if (eq this.status 'resolved')}}bg-green-500 text-white{{/if}}
                   ">
                     {{this.status}}
@@ -157,7 +157,7 @@
         {{#if responders.length}}
           <div class="space-y-3">
             {{#each responders}}
-              <div class="p-3 border border-gray-200 rounded-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition">
+              <div class="p-3 border border-gray-200 rounded-lg hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50 transition">
                 <div class="flex items-center justify-between">
                   <div>
                     <p class="font-semibold text-gray-800">{{this.firstName}} {{this.lastName}}</p>
@@ -188,7 +188,7 @@
 
     <!-- Resources Table -->
     <div class="bg-white rounded-xl shadow-lg overflow-hidden scale-on-hover">
-      <div class="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-4">
+      <div class="bg-gradient-to-r from-green-600 to-emerald-600 px-6 py-4">
         <h3 class="text-xl font-bold text-white flex items-center space-x-2">
           <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
             <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/>
@@ -209,7 +209,7 @@
           </thead>
           <tbody>
             {{#each resources}}
-              <tr class="border-b hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition">
+              <tr class="border-b hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50 transition">
                 <td class="px-6 py-4 font-medium text-gray-800">{{this.name}}</td>
                 <td class="px-6 py-4 capitalize text-gray-600">{{this.type}}</td>
                 <td class="px-6 py-4 text-gray-600">{{this.quantity}} {{this.unit}}</td>
@@ -225,7 +225,7 @@
                 </td>
                 <td class="px-6 py-4">
                   <span class="px-3 py-1 rounded-full text-xs font-semibold capitalize
-                    {{#if (eq this.status 'available')}}bg-blue-500 text-white{{/if}}
+                    {{#if (eq this.status 'available')}}bg-green-500 text-white{{/if}}
                     {{#if (eq this.status 'in-use')}}bg-orange-500 text-white{{/if}}
                     {{#if (eq this.status 'maintenance')}}bg-yellow-500 text-white{{/if}}
                     {{#if (eq this.status 'unavailable')}}bg-gray-500 text-white{{/if}}

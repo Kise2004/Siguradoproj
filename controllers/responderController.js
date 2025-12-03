@@ -36,23 +36,29 @@ const responderController = {
   listResponders: async (req, res) => {
     try {
       if (!req.session.userId) return res.redirect("/login");
-      
+
       const user = await User.findByPk(req.session.userId);
       const responders = await Responder.findAll({
         include: [{ model: Barangay, attributes: ['name'] }],
         order: [['lastName', 'ASC']]
       });
-      
+
+      const barangays = await Barangay.findAll({ order: [['name', 'ASC']] });
+
+      // Get flash messages from session
+      const error_msg = req.session.error_msg;
+      const success_msg = req.session.success_msg;
+      delete req.session.error_msg;
+      delete req.session.success_msg;
+
       // Render view based on user role
       const viewPath = user.role === 'citizen' ? "citizen/responders" : "mdrrmo/responders";
-      res.render(viewPath, { title: "Responders", responders });
+      res.render(viewPath, { title: "Responders", responders, barangays, user, error_msg, success_msg });
     } catch (err) {
       console.error(err);
-      res.render("mdrrmo/responders", { title: "Responders", responders: [] });
+      res.render("mdrrmo/responders", { title: "Responders", responders: [], barangays: [] });
     }
-  },
-
-  // Responder dashboard
+  },  // Responder dashboard
   responderDashboard: async (req, res) => {
     try {
       if (!req.session.userId) return res.redirect("/login");
@@ -63,7 +69,7 @@ const responderController = {
       });
       
       if (!responder) {
-        req.flash("error_msg", "Responder profile not found");
+        req.session.error_msg = "Responder profile not found";
         return res.redirect("/dashboard");
       }
       
@@ -121,20 +127,54 @@ const responderController = {
   updateStatus: async (req, res) => {
     try {
       if (!req.session.userId) return res.redirect("/login");
-      
+
       const { status } = req.body;
       const responder = await Responder.findOne({ where: { userId: req.session.userId } });
-      
+
       if (!responder) {
         return res.status(403).json({ error: "Not authorized" });
       }
       
       await responder.update({ status });
-      
+
       res.json({ success: true, status });
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: "Failed to update status" });
+    }
+  },
+
+  // Add new responder
+  addResponder: async (req, res) => {
+    try {
+      if (!req.session.userId) return res.redirect("/login");
+
+      const user = await User.findByPk(req.session.userId);
+      if (user.role !== 'mdrrmo') {
+        req.session.error_msg = "Not authorized to add responders";
+        return res.redirect("/responders");
+      }
+
+      const { barangayId, firstName, lastName, middleName, contactNumber, position, specialization, status } = req.body;
+
+      await Responder.create({
+        userId: null, // Will be linked when responder creates their account
+        barangayId,
+        firstName,
+        lastName,
+        middleName: middleName || null,
+        contactNumber,
+        position: position || 'Responder',
+        specialization: specialization || 'General',
+        status: status || 'available'
+      });
+
+      req.session.success_msg = "Responder added successfully";
+      res.redirect("/responders");
+    } catch (err) {
+      console.error(err);
+      req.session.error_msg = "Failed to add responder";
+      res.redirect("/responders");
     }
   }
 };

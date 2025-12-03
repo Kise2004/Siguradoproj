@@ -60,7 +60,7 @@ const barangayController = {
       const barangay = await Barangay.findByPk(req.params.id);
       
       if (!barangay) {
-        req.flash("error_msg", "Barangay not found");
+        req.session.error_msg = "Barangay not found";
         return res.redirect("/barangays");
       }
       
@@ -99,9 +99,15 @@ const barangayController = {
         order: [['name', 'ASC']]
       });
       
+      const barangays = await Barangay.findAll({ order: [['name', 'ASC']] });
+
       // Render view based on user role
       const viewPath = user.role === 'citizen' ? "citizen/resources" : "mdrrmo/resources";
-      res.render(viewPath, { title: "Resources", resources });
+      const error_msg = req.session.error_msg;
+      const success_msg = req.session.success_msg;
+      delete req.session.error_msg;
+      delete req.session.success_msg;
+      res.render(viewPath, { title: "Resources", resources, barangays, user, error_msg, success_msg });
     } catch (err) {
       console.error(err);
       res.render("mdrrmo/resources", { title: "Resources", resources: [] });
@@ -125,12 +131,12 @@ const barangayController = {
         status: 'available',
         description
       });
-      
-      req.flash("success_msg", "Resource added successfully!");
+
+      req.session.success_msg = "Resource added successfully!";
       res.redirect("/resources");
     } catch (err) {
       console.error(err);
-      req.flash("error_msg", "Failed to add resource");
+      req.session.error_msg = "Failed to add resource";
       res.redirect("/resources");
     }
   }

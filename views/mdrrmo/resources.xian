@@ -1,7 +1,7 @@
 {{> head}}
 <body class="bg-gray-50 min-h-screen flex">
   <!-- Sidebar -->
-  <aside class="w-64 bg-gradient-to-b from-blue-600 to-purple-600 text-white fixed h-full shadow-2xl z-50">
+  <aside class="w-64 bg-gradient-to-b from-green-600 to-emerald-600 text-white fixed h-full shadow-2xl z-50">
     <div class="p-6">
       <div class="flex items-center space-x-3 mb-8">
         <svg class="w-10 h-10 nav-logo" fill="currentColor" viewBox="0 0 20 20">
@@ -43,13 +43,32 @@
 
   <div class="flex-1 ml-64 flex flex-col min-h-screen">
     <div class="flex-1 p-8">
+    <script>
+      {{#if success_msg}}
+        Swal.fire({ icon: 'success', title: 'Success!', text: '{{success_msg}}', confirmButtonColor: '#10b981' });
+      {{/if}}
+      {{#if error_msg}}
+        Swal.fire({ icon: 'error', title: 'Error!', text: '{{error_msg}}', confirmButtonColor: '#dc2626' });
+      {{/if}}
+    </script>
+
     <div class="flex justify-between items-center mb-6">
       <h2 class="text-3xl font-bold">Resource Management</h2>
+      {{#if user}}
+        {{#if (eq user.role 'mdrrmo')}}
+          <button onclick="openAddResourceModal()" class="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition flex items-center gap-2 shadow-lg">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd"/>
+            </svg>
+            Add Resource
+          </button>
+        {{/if}}
+      {{/if}}
     </div>
 
     <div class="bg-white rounded-xl shadow-lg overflow-hidden scale-on-hover">
-      <table class="w-full">
-        <thead class="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+      <table id="resourcesTable" class="w-full display">
+        <thead class="bg-gradient-to-r from-green-600 to-emerald-600 text-white">
           <tr>
             <th class="px-4 py-3 text-left">Resource Name</th>
             <th class="px-4 py-3 text-left">Type</th>
@@ -61,7 +80,7 @@
         </thead>
         <tbody>
           {{#each resources}}
-            <tr class="border-b hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition">
+            <tr class="border-b hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50 transition">
               <td class="px-4 py-3 font-medium">{{this.name}}</td>
               <td class="px-4 py-3 capitalize">{{this.type}}</td>
               <td class="px-4 py-3">{{this.barangay.name}}</td>
@@ -78,7 +97,7 @@
               </td>
               <td class="px-4 py-3 capitalize">
                 <span class="px-3 py-1 rounded-full text-xs font-semibold
-                  {{#if (eq this.status 'available')}}bg-blue-500 text-white{{/if}}
+                  {{#if (eq this.status 'available')}}bg-green-500 text-white{{/if}}
                   {{#if (eq this.status 'in-use')}}bg-orange-500 text-white{{/if}}
                   {{#if (eq this.status 'maintenance')}}bg-yellow-500 text-white{{/if}}
                   {{#if (eq this.status 'unavailable')}}bg-gray-500 text-white{{/if}}
@@ -103,5 +122,119 @@
     </div>
     {{> footer}}
   </div>
+
+  <!-- Add Resource Modal -->
+  <div id="addResourceModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+      <div class="bg-gradient-to-r from-green-500 to-emerald-600 p-6 rounded-t-2xl">
+        <div class="flex justify-between items-center">
+          <div>
+            <h2 class="text-2xl font-bold text-white">Add New Resource</h2>
+            <p class="text-green-50 text-sm">Register emergency resource or equipment</p>
+          </div>
+          <button onclick="closeAddResourceModal()" class="text-white hover:text-green-100 text-3xl">&times;</button>
+        </div>
+      </div>
+
+      <form method="POST" action="/resources" class="p-6 space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Resource Name *</label>
+            <input type="text" name="name" placeholder="e.g., Relief Goods, Ambulance" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition" required />
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Type *</label>
+            <select name="type" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition bg-white" required>
+              <option value="">Select Type</option>
+              <option value="vehicle">🚗 Vehicle</option>
+              <option value="equipment">🔧 Equipment</option>
+              <option value="medical">💊 Medical Supplies</option>
+              <option value="food">🍲 Food & Relief Goods</option>
+              <option value="communication">📡 Communication Device</option>
+              <option value="tool">🛠️ Tool</option>
+              <option value="other">📦 Other</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Barangay *</label>
+            <select name="barangayId" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition bg-white" required>
+              <option value="">Select Barangay</option>
+              {{#each barangays}}
+                <option value="{{this.id}}">{{this.name}}</option>
+              {{/each}}
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Quantity *</label>
+            <input type="number" name="quantity" min="1" value="1" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition" required />
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Unit</label>
+            <input type="text" name="unit" placeholder="e.g., units, boxes, liters" value="unit" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Condition *</label>
+            <select name="condition" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition bg-white" required>
+              <option value="excellent">⭐ Excellent</option>
+              <option value="good" selected>✅ Good</option>
+              <option value="fair">⚠️ Fair</option>
+              <option value="poor">❌ Poor</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Description</label>
+          <textarea name="description" rows="3" placeholder="Additional details about the resource..." class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"></textarea>
+        </div>
+
+        <div class="flex gap-3 pt-4">
+          <button type="submit" class="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 rounded-xl font-bold hover:from-green-600 hover:to-emerald-700 transition shadow-lg">
+            Add Resource
+          </button>
+          <button type="button" onclick="closeAddResourceModal()" class="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function openAddResourceModal() {
+      document.getElementById('addResourceModal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeAddResourceModal() {
+      document.getElementById('addResourceModal').classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('addResourceModal')?.addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeAddResourceModal();
+      }
+    });
+
+    // Initialize DataTable
+    $(document).ready(function() {
+      $('#resourcesTable').DataTable({
+        order: [[0, 'asc']],
+        pageLength: 10,
+        language: {
+          search: "Search resources:",
+          lengthMenu: "Show _MENU_ resources per page",
+          info: "Showing _START_ to _END_ of _TOTAL_ resources"
+        }
+      });
+    });
+  </script>
 </body>
 </html>
